@@ -41,6 +41,7 @@ namespace BAnANA
         };
     public void Start()
         {
+        //Quality functions.
             try
             {
                 commands = new Dictionary<string, System.Action>
