@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="#"><img src="https://media.discordapp.net/attachments/1196141322248130611/1253995717899456563/BAnANALogo_prev_ui.png?ex=6677e205&is=66769085&hm=27741183abad3fb1247d652359428bdeccf8683bdf993587f25dcc1d13b0b686&=&format=webp&quality=lossless&width=507&height=505"></a>
+  <a href="#"><img src="https://github.com/kingofnetflix/BAnANA/blob/master/BAnANA/Resources/BAnANALogo.png?raw=true"></a>
 </p>
 
 ---
