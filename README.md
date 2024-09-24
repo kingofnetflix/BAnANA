@@ -15,7 +15,7 @@
 #### BAnANA learns from you! Submit any bug reports or pull requests to help out!
 
 
-BAnANA is an assistant designed to help accomplish tasks, such as running custom code. BAnANA does not use AI as that would be too expensive, but detects keywords from your voice to run whatever you tell it, and is all local! You can view the VoiceManager class to add your own commands!
+BAnANA is an assistant designed to help accomplish tasks, such as running custom code. BAnANA does not use AI, but detects keywords from your voice to run whatever you tell it, and is all local! You can view the VoiceManager class to add your own commands!
 
 ---
 
