@@ -8,6 +8,7 @@ using System.IO;
 using System.Media;
 using System;
 using Photon.Voice.Unity;
+using System.Linq;
 
 namespace BAnANA
 {
@@ -15,6 +16,7 @@ namespace BAnANA
     {
         private string[] wakeWords = { "banana", "jarvis", "alexa", "hey google" }; // implementation of custom wake words hard coded
         private Dictionary<string, System.Action> commands;
+        private string[] discardCommands = { "cancel", "stop", "nevermind" };
         private KeywordRecognizer keywordRecognizer;
         private KeywordRecognizer commandRecognizer;
         private bool listeningForCommand = false;
@@ -101,6 +103,17 @@ namespace BAnANA
                 }
                 TTSResponse(false);
                 NotifificationLibBAnANA.SendNotification($"recognized {args.text}");
+            }
+            else if (listeningForCommand && discardCommands.Contains(args.text))
+            {
+                Debug.Log($"recognized a command: {args.text}");
+                listeningForCommand = false;
+                if (commandListeningCoroutine != null)
+                {
+                    StopCoroutine(commandListeningCoroutine);
+                }
+                TTSResponse(false);
+                NotifificationLibBAnANA.SendNotification($"recognized discard command {args.text}");
             }
         }
 
