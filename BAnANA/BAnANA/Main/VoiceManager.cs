@@ -108,12 +108,13 @@ namespace BAnANA
             {
                 Debug.Log($"recognized a command: {args.text}");
                 listeningForCommand = false;
-                if (commandListeningCoroutine != null)
+                if (commandRecognizer != null && commandRecognizer.IsRunning)
                 {
-                    StopCoroutine(commandListeningCoroutine);
+                    commandRecognizer.Stop();
+                    commandRecognizer.Dispose();
                 }
+                NotifificationLibBAnANA.SendNotification("Stopped listening");
                 TTSResponse(false);
-                NotifificationLibBAnANA.SendNotification($"recognized discard command {args.text}");
             }
         }
 
@@ -172,7 +173,7 @@ namespace BAnANA
                     commandRecognizer.Stop();
                     commandRecognizer.Dispose();
                 }
-                NotifificationLibBAnANA.SendNotification("stopped listening");
+                NotifificationLibBAnANA.SendNotification("Stopped listening");
             }
         }
 
