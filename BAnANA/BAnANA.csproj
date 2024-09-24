@@ -31,7 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BAnANA\Main\Mods.cs" />
     <Compile Include="BAnANA\Main\VoiceManager.cs" />
     <Compile Include="BAnANA\Utility\ResourceLoader.cs" />
     <Compile Include="BAnANA\Utility\Loader.cs" />

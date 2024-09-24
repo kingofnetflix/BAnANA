@@ -43,8 +43,7 @@ namespace BAnANA
                 commands = new Dictionary<string, System.Action>
                 {
                     { "disconnect me", () => PhotonNetwork.Disconnect() },
-                    { "toggle iron monkey", () => MethodManager.Toggle(Mods.IronMonke, 0f) },
-                    { "toggle spider monkey", () => MethodManager.Toggle(Mods.Webshooters, 0f) } //you can use my method manager here to toggle mods you create! :D
+                    // { "toggle iron monkey", () => MethodManager.Toggle(Mods.IronMonke, 0f) },//you can use my method manager here to toggle mods you create! :D
                     // add more commands and their corresponding actions here
                 };
                 keywordRecognizer = new KeywordRecognizer(wakeWords);
