@@ -19,6 +19,7 @@ namespace BAnANA
         private KeywordRecognizer commandRecognizer;
         private bool listeningForCommand = false;
         private Coroutine commandListeningCoroutine;
+        private static bool playThroughPhoton = false;
         /* below are tts lines. if you are adding your own, make sure its imported in your visual studio project
          * and it's build action is "Embedded Resource"
          * you can change it by right clicking on the file
@@ -103,7 +104,7 @@ namespace BAnANA
             }
         }
 
-        public static void TTSResponse(bool wake = true)
+        public static async void TTSResponse(bool wake = true)
         {
             // this system is kinda butt
             if (wake)
@@ -123,6 +124,8 @@ namespace BAnANA
                 {
                     player.Play();
                 }
+                if (playThroughPhoton)
+                    await ResourceLoader.PlayThroughPhoton(resourceName);
             }
             if (!wake)
             {
@@ -140,6 +143,8 @@ namespace BAnANA
                 {
                     player.Play();
                 }
+                if (playThroughPhoton)
+                    await ResourceLoader.PlayThroughPhoton(resourceName);
             }
         }
         IEnumerator Timeout()

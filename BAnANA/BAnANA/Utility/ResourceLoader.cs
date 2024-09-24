@@ -16,55 +16,49 @@ namespace BAnANA.Utility
             return assembly.GetManifestResourceStream(resourceName);
         }
 
-        private static async Task PlayThroughPhoton(string resourcePath)
+        public static async Task PlayThroughPhoton(string resourcePath)
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            using (Stream streaming = assembly.GetManifestResourceStream(resourcePath))
+            Stream stream = ResourceLoader.GetEmbeddedResourceStream(resourcePath);
+            using (stream)
             {
-                bool flag = streaming == null;
-                if (flag)
+                if (stream == null)
                 {
                     Debug.LogError("Failed to load resource " + resourcePath);
                     return;
                 }
-                byte[] buffer = new byte[streaming.Length];
-                streaming.Read(buffer, 0, buffer.Length);
-                string tempFilePath = Path.Combine(Application.temporaryCachePath, "tempAudio.mp3");
-                File.WriteAllBytes(tempFilePath, buffer);
-                using (UnityWebRequest unityWebRequest1 = UnityWebRequestMultimedia.GetAudioClip("file://" + tempFilePath, AudioType.MPEG))
+                byte[] array = new byte[stream.Length];
+                stream.Read(array, 0, array.Length);
+                string tempFilePath = Path.Combine(Application.temporaryCachePath, "tempAudio.wav");
+                File.WriteAllBytes(tempFilePath, array);
+                UnityWebRequest requesttt = UnityWebRequestMultimedia.GetAudioClip("file://" + tempFilePath, AudioType.WAV);
+                using (requesttt)
                 {
-                    UnityWebRequestAsyncOperation operation = unityWebRequest1.SendWebRequest();
+                    UnityWebRequestAsyncOperation operation = requesttt.SendWebRequest();
                     while (!operation.isDone)
                     {
                         await Task.Yield();
                     }
-                    if (unityWebRequest1.isNetworkError || unityWebRequest1.isHttpError)
+                    if (requesttt.isNetworkError || requesttt.isHttpError)
                     {
-                        Debug.Log(unityWebRequest1.error);
+                        Debug.Log(requesttt.error);
                     }
                     else
                     {
-                        AudioClip myClip = DownloadHandlerAudioClip.GetContent(unityWebRequest1);
+                        AudioClip content = DownloadHandlerAudioClip.GetContent(requesttt);
                         GorillaTagger.Instance.myRecorder.SourceType = Recorder.InputSourceType.AudioClip;
-                        GorillaTagger.Instance.myRecorder.AudioClip = myClip;
+                        GorillaTagger.Instance.myRecorder.AudioClip = content;
                         GorillaTagger.Instance.myRecorder.LoopAudioClip = false;
                         GorillaTagger.Instance.myRecorder.RestartRecording(true);
-                        GorillaTagger.Instance.myRecorder.DebugEchoMode = true;
-                        await Task.Delay((int)(myClip.length * 1000f) + 4000);
+                        GorillaTagger.Instance.myRecorder.DebugEchoMode = false;
+                        await Task.Delay((int)(content.length * 1000f) + 4000);
                         GorillaTagger.Instance.myRecorder.SourceType = Recorder.InputSourceType.Microphone;
                         GorillaTagger.Instance.myRecorder.AudioClip = null;
                         GorillaTagger.Instance.myRecorder.RestartRecording(true);
                         GorillaTagger.Instance.myRecorder.DebugEchoMode = false;
-                        myClip = null;
                     }
-                    operation = null;
                 }
-                UnityWebRequest unityWebRequest = null;
                 File.Delete(tempFilePath);
-                buffer = null;
-                tempFilePath = null;
             }
-            Stream stream = null;
         }
 
     }
