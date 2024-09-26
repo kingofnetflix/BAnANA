@@ -19,5 +19,6 @@ BAnANA is an assistant designed to help accomplish tasks, such as running custom
 
 ---
 
-> This project was not meant to be public. If the code looks really weird or bad, that is why. I'll do a general recode/refactor soon
+> This project was not meant to be public. If the code looks really weird or bad, that is why. I'll do a general recode/refactor soon.
+
 > This product is independent of Gorilla Tag and Another Axiom LLC, and does not have their endorsement or sponsorship. Some materials used are owned by Another Axiom LLC. © 2024 Another Axiom LLC.
